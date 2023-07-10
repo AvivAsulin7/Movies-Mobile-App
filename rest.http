@@ -1,0 +1,96 @@
+
+//////////////////////////////////////////// ARTICLES ////////////////////////////////////////////
+
+// Get articles (default=10)
+### 
+GET https://api.spaceflightnewsapi.net/v4/articles/
+
+// Get "K" articles (k=3)
+### 
+GET https://api.spaceflightnewsapi.net/v4/articles/?limit=3
+
+// Search for documents with a specific phrase in the title or summary.
+### 
+GET https://api.spaceflightnewsapi.net/v4/articles/?search=api.spaceflightnewsapi.net/v4/articles/?search=faa
+
+// 
+
+// Get all documents updated after a 05/05/23 (included).
+### 
+GET https://api.spaceflightnewsapi.net/v4/articles/?updated_at_gte=2023-05-05
+
+// Get all documents updated before a 04/05/23 (included).
+### 
+GET https://api.spaceflightnewsapi.net/v4/articles/?updated_at_lte=2023-05-04
+
+
+// Get unique article by id=19619
+###
+GET https://api.spaceflightnewsapi.net/v4/articles/19619/
+
+// Which field to use when ordering the results (published_at,id) with limit 100
+###
+GET https://api.spaceflightnewsapi.net/v4/articles/?limit=100&ordering=published_at
+
+
+
+//////////////////////////////////////////// BLOGS ////////////////////////////////////////////
+
+// Get blogs (default=10)
+### 
+GET https://api.spaceflightnewsapi.net/v4/blogs/
+
+// Get 2 blogs
+### 
+GET https://api.spaceflightnewsapi.net/v4/blogs/?limit=2
+
+// Search for documents with a specific phrase in the title or summary.
+### 
+GET https://api.spaceflightnewsapi.net/v4/blogs/?search=alien
+
+// Get all documents updated after a 05/05/23 (included).
+### 
+GET https://api.spaceflightnewsapi.net/v4/blogs/?updated_at_gte=2023-06-04
+
+// Get all documents updated before a 04/05/23 (included).
+### 
+GET https://api.spaceflightnewsapi.net/v4/blogs/?updated_at_lte=2023-06-03
+
+// Get unique blog by id=1021
+###
+GET https://api.spaceflightnewsapi.net/v4/blogs/1021/
+
+
+//////////////////////////////////////////// REPORTS ////////////////////////////////////////////
+
+// Get reports (default=10)
+### 
+GET https://api.spaceflightnewsapi.net/v4/reports/
+
+// Get 20 reports 
+### 
+GET https://api.spaceflightnewsapi.net/v4/reports/?limit=20
+
+// Search for latest 4 documents with a specific phrase: 'nano' the title or summary.
+### 
+GET https://api.spaceflightnewsapi.net/v4/reports/?limit=4&search=nano
+
+// Get all documents updated after a 04/06/23 (included).
+### 
+GET https://api.spaceflightnewsapi.net/v4/reports/?updated_at_lte=2023-06-04
+
+// Get all documents updated before a 04/06/23 (included).
+###
+GET https://api.spaceflightnewsapi.net/v4/reports/?updated_at_gte=2023-06-04
+
+// Get unique report by id=1021
+###
+GET https://api.spaceflightnewsapi.net/v4/reports/1361/
+
+
+
+
+
+
+
+
