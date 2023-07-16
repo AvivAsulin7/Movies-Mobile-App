@@ -1,9 +1,15 @@
-import {DO_SOMETHING} from './constants';
+import {SWITCH_TO_DARK, SWITCH_TO_LIGHT} from './constants';
 
-type do_something = object;
+type theme = object;
 
-export const do_something = (value: do_something) => ({
+export const switch_to_light = (value: theme) => ({
   // ({}) == return {}
-  type: DO_SOMETHING,
+  type: SWITCH_TO_LIGHT,
+  payload: value,
+});
+
+export const switch_to_dark = (value: theme) => ({
+  // ({}) == return {}
+  type: SWITCH_TO_DARK,
   payload: value,
 });

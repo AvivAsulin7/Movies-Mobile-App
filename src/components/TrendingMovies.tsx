@@ -1,4 +1,5 @@
-import {View, Text, TouchableOpacity, Dimensions, Image} from 'react-native';
+import {View, TouchableOpacity, Dimensions, Image} from 'react-native';
+import Text from './reusable-components/Text';
 import React from 'react';
 import {GS} from '../theme/globalStyle';
 import Carousel from 'react-native-snap-carousel';
@@ -42,7 +43,6 @@ const TrendingMovies = ({data}: Props) => {
     <View style={GS.marginBottom6}>
       <Text
         style={[
-          GS.white,
           GS.bodyBold18,
           GS.marginBottom6,
           GS.marginHorizontal4,

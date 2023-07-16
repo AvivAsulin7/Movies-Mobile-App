@@ -196,6 +196,8 @@ export const GS = StyleSheet.create({
     alignItems: 'flex-end',
   },
   // paddings
+  padding2: {padding: convertWidthToPixel(2)},
+  padding4: {padding: convertWidthToPixel(4)},
   padding8: {padding: convertWidthToPixel(8)},
   padding12: {padding: convertWidthToPixel(12)},
   padding16: {padding: convertWidthToPixel(16)},
@@ -235,6 +237,8 @@ export const GS = StyleSheet.create({
   paddingRight24: {
     paddingRight: convertWidthToPixel(24),
   },
+  paddingTop2: {paddingTop: convertHeightToPixel(2)},
+  paddingTop4: {paddingTop: convertHeightToPixel(4)},
   paddingTop8: {paddingTop: convertHeightToPixel(8)},
   paddingTop16: {paddingTop: convertHeightToPixel(16)},
   paddingTop24: {paddingTop: convertHeightToPixel(24)},
@@ -252,7 +256,14 @@ export const GS = StyleSheet.create({
   paddingHorizontal16: {
     paddingHorizontal: convertWidthToPixel(16),
   },
+  paddingHorizontal4: {
+    paddingHorizontal: convertWidthToPixel(4),
+  },
+  paddingHorizontal6: {
+    paddingHorizontal: convertWidthToPixel(6),
+  },
   // Margin
+  marginVertical1: {marginVertical: convertHeightToPixel(1)},
   marginVertical5: {marginVertical: convertHeightToPixel(5)},
   marginVertical4: {marginVertical: convertHeightToPixel(4)},
   marginVertical8: {marginVertical: convertHeightToPixel(8)},
@@ -298,6 +309,12 @@ export const GS = StyleSheet.create({
   },
   marginHorizontal8: {
     marginHorizontal: convertWidthToPixel(8),
+  },
+  marginHorizontal6: {
+    marginHorizontal: convertWidthToPixel(6),
+  },
+  marginHorizontal2: {
+    marginHorizontal: convertWidthToPixel(2),
   },
   marginHorizontal16: {
     marginHorizontal: convertWidthToPixel(16),
@@ -532,12 +549,26 @@ export const GS = StyleSheet.create({
     fontWeight: '400',
   },
   baseShadow: {
+    shadowColor: 'gray',
     shadowOffset: {
       width: 0,
-      height: 4,
+      height: 5,
     },
-    shadowOpacity: 0.2,
+    shadowOpacity: 1,
     shadowRadius: 40,
+  },
+  baseShadow2: {
+    borderRadius: 400,
+    height: 300,
+    width: 320,
+    shadowColor: '#fff',
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowRadius: 40,
+    shadowOpacity: 1,
+    elevation: 12,
   },
   // colors
   bgBlack: {
@@ -549,8 +580,8 @@ export const GS = StyleSheet.create({
   bgTrans: {
     backgroundColor: 'transparent',
   },
-  bgBlue: {
-    backgroundColor: 'blue',
+  grey: {
+    color: 'color: rgb(163 163 163)',
   },
   white: {
     color: '#fff',
@@ -596,6 +627,10 @@ export const GS = StyleSheet.create({
     borderRadius: 2,
     width: convertWidthToPixel(36),
   },
+  borderRight: {
+    borderRightWidth: 2,
+    borderRightColor: 'rgb(163 163 163)',
+  },
 });
 
 export const Colors = {
@@ -609,14 +644,14 @@ export const colorsTheme = {
   DARK: {
     ...Colors,
     PrimaryColor: '#FF4081', // Vivid pink
-    SecondaryColor: '#00E676', // Vivid green
-    ThirdColor: '#C84CFF',
-    PrimaryBG: '#1A237E', // Dark blue
-    SecondaryBG: '#006064', // Teal
+    SecondaryColor: 'rgb(163 163 163)', // Vivid green
+    ThirdColor: '#D50000',
+    PrimaryBG: 'rgb(38 38 38)', // Dark blue
+    SecondaryBG: 'rgb(64 64 64)', // Teal
     ThirdBG: '#AA00FF', // Electric purple
     InvertBG: '#FFF3E0', // Light orange
     InvertSecondBG: '#FFCDD2', // Light pink
-    MainText: '#FFEA00', // Vivid yellow
+    MainText: '#fff', // Vivid yellow
     SecondaryText: '#69F0AE', // Mint green
     InvertText: '#311B92', // Dark purple
     InvertSecondText: '#E65100', // Dark orange

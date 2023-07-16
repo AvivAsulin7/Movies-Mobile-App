@@ -1,24 +1,27 @@
 import {
   View,
-  Text,
   TouchableOpacity,
   ScrollView,
   TouchableWithoutFeedback,
   Image,
   Dimensions,
 } from 'react-native';
+import Text from './reusable-components/Text';
 import React from 'react';
 import {GS} from '../theme/globalStyle';
 import {useNavigation} from '@react-navigation/native';
 
+const titleStyle = [GS.bodyBold18, GS.text20];
+
 type Props = {
   title: String;
   data: Number[];
+  hideSeeAll?: Boolean;
 };
 
 const {width, height} = Dimensions.get('window');
 
-const MoviesList = ({title, data}: Props) => {
+const MoviesList = ({title, data, hideSeeAll}: Props) => {
   const navigation = useNavigation();
   const movieName = 'Fast and furious 10';
   return (
@@ -30,33 +33,34 @@ const MoviesList = ({title, data}: Props) => {
           GS.alignCenter,
           GS.marginHorizontal4,
         ]}>
-        <Text style={[GS.white, GS.bodyBold18, GS.text20]}>{title}</Text>
-        <TouchableOpacity>
-          <Text style={[GS.white, GS.bodyBold18, GS.text20]}>See All</Text>
-        </TouchableOpacity>
+        <Text style={titleStyle}>{title}</Text>
+        {!hideSeeAll && (
+          <TouchableOpacity>
+            <Text style={titleStyle}>See All</Text>
+          </TouchableOpacity>
+        )}
       </View>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={GS.paddingHorizontal16}>
+      <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {data.map((item, index) => {
           return (
             <TouchableWithoutFeedback
               key={index}
-              onPress={() => navigation.navigate('Movie', item)}>
+              onPress={() => navigation.push('Movie', item)}>
               <View style={GS.marginHorizontal0}>
                 <Image
                   source={{
                     uri: 'https://static-koimoi.akamaized.net/wp-content/new-galleries/2023/06/extraction-2-01.jpg',
                   }}
-                  style={{
-                    width: width * 0.33,
-                    height: height * 0.22,
-                    marginTop: 15,
-                    borderRadius: 18,
-                  }}
+                  style={[
+                    {
+                      width: width * 0.33,
+                      height: height * 0.22,
+                    },
+                    GS.marginTop2,
+                    GS.borderRadius16,
+                  ]}
                 />
-                <Text style={GS.white}>
+                <Text>
                   {movieName.length > 14
                     ? movieName.slice(0, 14) + '...'
                     : movieName}
