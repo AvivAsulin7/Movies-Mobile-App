@@ -3,7 +3,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Root from './root/Root';
+import Root from './src/root/Root';
 
 const App: React.FC = () => {
   // const dispatch = useDispatch();

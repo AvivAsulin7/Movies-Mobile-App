@@ -10,20 +10,28 @@ import Text from './reusable-components/Text';
 import React from 'react';
 import {GS} from '../theme/globalStyle';
 import {useNavigation} from '@react-navigation/native';
+import {image185} from '../api/api';
+import {useSelector} from 'react-redux';
+import {MovieNavigationProps, ScreensNames} from '../root/types';
+import {MoviesType} from '../types/types';
+// @ts-ignore
+import {no_poster} from '../assets/no_poster.jpeg';
 
 const titleStyle = [GS.bodyBold18, GS.text20];
 
 type Props = {
   title: String;
-  data: Number[];
+  data: MoviesType[];
   hideSeeAll?: Boolean;
 };
 
 const {width, height} = Dimensions.get('window');
 
 const MoviesList = ({title, data, hideSeeAll}: Props) => {
-  const navigation = useNavigation();
-  const movieName = 'Fast and furious 10';
+  const theme = useSelector<any>(state => state.AppReducer.theme) as any;
+
+  const navigation = useNavigation<MovieNavigationProps>();
+
   return (
     <View style={GS.marginBottom4}>
       <View
@@ -36,20 +44,20 @@ const MoviesList = ({title, data, hideSeeAll}: Props) => {
         <Text style={titleStyle}>{title}</Text>
         {!hideSeeAll && (
           <TouchableOpacity>
-            <Text style={titleStyle}>See All</Text>
+            <Text style={[titleStyle, {color: theme.ThirdColor}]}>See All</Text>
           </TouchableOpacity>
         )}
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        {data.map((item, index) => {
+        {data?.map((item: MoviesType, index: React.Key) => {
           return (
             <TouchableWithoutFeedback
               key={index}
-              onPress={() => navigation.push('Movie', item)}>
+              onPress={() => navigation.push(ScreensNames.MOVIE, item)}>
               <View style={GS.marginHorizontal0}>
                 <Image
                   source={{
-                    uri: 'https://static-koimoi.akamaized.net/wp-content/new-galleries/2023/06/extraction-2-01.jpg',
+                    uri: image185(item.poster_path) || no_poster,
                   }}
                   style={[
                     {
@@ -60,10 +68,10 @@ const MoviesList = ({title, data, hideSeeAll}: Props) => {
                     GS.borderRadius16,
                   ]}
                 />
-                <Text>
-                  {movieName.length > 14
-                    ? movieName.slice(0, 14) + '...'
-                    : movieName}
+                <Text style={GS.margin1}>
+                  {item?.title.length > 14
+                    ? item?.title.slice(0, 14) + '...'
+                    : item?.title}
                 </Text>
               </View>
             </TouchableWithoutFeedback>

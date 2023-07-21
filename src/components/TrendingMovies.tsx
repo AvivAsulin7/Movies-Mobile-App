@@ -2,14 +2,20 @@ import {View, TouchableOpacity, Dimensions, Image} from 'react-native';
 import Text from './reusable-components/Text';
 import React from 'react';
 import {GS} from '../theme/globalStyle';
+// @ts-ignore
 import Carousel from 'react-native-snap-carousel';
 import {useNavigation} from '@react-navigation/native';
+import {image500} from '../api/api';
+import {MovieNavigationProps, ScreensNames} from '../root/types';
+// @ts-ignore
+import {no_poster} from '../assets/no_poster.jpeg';
+import {MoviesType} from '../types/types';
 
 const {width, height} = Dimensions.get('window');
 
 type PropsMovieCard = {
-  item: any;
-  navigateToMovie: (item: any) => void;
+  item: MoviesType;
+  navigateToMovie: (item: MoviesType) => void;
 };
 
 const MovieCard = ({item, navigateToMovie}: PropsMovieCard) => {
@@ -17,7 +23,7 @@ const MovieCard = ({item, navigateToMovie}: PropsMovieCard) => {
     <TouchableOpacity onPress={() => navigateToMovie(item)}>
       <Image
         source={{
-          uri: 'https://m.media-amazon.com/images/I/81Z1dBZlvOL._AC_UF1000,1000_QL80_.jpg',
+          uri: image500(item.poster_path) || no_poster,
         }}
         style={{
           width: width * 0.6,
@@ -29,14 +35,14 @@ const MovieCard = ({item, navigateToMovie}: PropsMovieCard) => {
 };
 
 type Props = {
-  data: Number[];
+  data: MoviesType[];
 };
 
 const TrendingMovies = ({data}: Props) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<MovieNavigationProps>();
 
-  const navigateToMovie = (item: any) => {
-    navigation.navigate('Movie', item);
+  const navigateToMovie = (item: MoviesType) => {
+    navigation.navigate(ScreensNames.MOVIE, item);
   };
 
   return (
@@ -52,7 +58,7 @@ const TrendingMovies = ({data}: Props) => {
       </Text>
       <Carousel
         data={data}
-        renderItem={({item}: any) => (
+        renderItem={({item}: {item: MoviesType}) => (
           <MovieCard item={item} navigateToMovie={navigateToMovie} />
         )}
         firstItem={1}

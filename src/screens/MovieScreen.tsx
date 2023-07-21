@@ -1,102 +1,144 @@
-import {
-  View,
-  StatusBar,
-  ScrollView,
-  SafeAreaView,
-  TouchableOpacity,
-  Dimensions,
-  Image,
-} from 'react-native';
+import {View, StatusBar, ScrollView, Dimensions, Image} from 'react-native';
 import Text from '../components/reusable-components/Text';
 import React, {useEffect, useState} from 'react';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import {GS} from '../theme/globalStyle';
-import {ChevronLeftIcon} from 'react-native-heroicons/outline';
-import {HeartIcon} from 'react-native-heroicons/solid';
 import LinearGradient from 'react-native-linear-gradient';
 import {useSelector} from 'react-redux';
 import Cast from '../components/Cast';
 import MoviesList from '../components/MoviesList';
 import NavigateBack from '../components/NavigateBack';
-
-type Props = {};
+import {useApiRequest} from '../hooks/useApiRequest';
+import {endpoints, image500} from '../api/api';
+import Loading from '../components/Loading';
+// @ts-ignore
+import {no_poster} from '../assets/no_poster.jpeg';
+import {ActorType, MovieDataType, MoviesType} from '../types/types';
 
 const {width, height} = Dimensions.get('window');
 
-const MovieScreen = (props: Props) => {
+const MovieScreen = () => {
   const theme = useSelector<any>(state => state.AppReducer.theme) as any;
+  const {loading, error, sendRequest} = useApiRequest();
+  const [movie, setMovie] = useState<MovieDataType>();
+
   const detailsMovieStyle = {
-    letterSpacing: 2,
+    letterSpacing: 1,
     lineHeight: 20,
-    color: theme.SecondaryColor,
+    marginLeft: 7,
+    color: theme.PrimaryColor,
   };
 
-  const [cast, setCast] = useState([1, 2, 3, 4, 5]);
-  const [SimiliarMovies, setSimilarMovies] = useState([1, 2, 3, 4, 5]);
-
+  const [cast, setCast] = useState<ActorType[]>([]);
+  const [SimiliarMovies, setSimilarMovies] = useState<MoviesType[]>([]);
   const {params: item} = useRoute();
-  const navigation = useNavigation();
-  const [isFavorite, setIsFavorite] = useState(false);
-  const movieName = 'Fast and furious 10';
 
-  useEffect(() => {}, [item]);
+  useEffect(() => {
+    const fetchDetailsMovie = async () => {
+      let data, url;
+
+      try {
+        url = endpoints.movieDetails(item?.id);
+        data = await sendRequest({url});
+        if (data) setMovie(data);
+
+        url = endpoints.movieCast(item?.id);
+        console.log('casttt: ', url);
+
+        data = await sendRequest({url});
+        console.log(url);
+
+        if (data && data.cast) setCast(data.cast);
+
+        url = endpoints.similarMovies(item?.id);
+        console.log('similarr: ', url);
+        data = await sendRequest({url});
+        console.log(url);
+
+        if (data && data.results) setSimilarMovies(data.results);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchDetailsMovie();
+  }, [item]);
 
   return (
-    <ScrollView contentContainerStyle={[GS.bgBlack, {paddingBottom: 20}]}>
+    <ScrollView
+      contentContainerStyle={[
+        {backgroundColor: theme.PrimaryBG, paddingBottom: 20},
+      ]}>
       <View style={GS.fullWidth}>
         <StatusBar translucent backgroundColor="transparent" />
-        <NavigateBack navigation={navigation} isAbsoluteStyle={true} />
-        <View>
-          <Image
-            source={{
-              uri: 'https://cdn11.bigcommerce.com/s-ydriczk/images/stencil/1280x1280/products/89058/93685/Joker-2019-Final-Style-steps-Poster-buy-original-movie-posters-at-starstills__62518.1669120603.jpg?c=2',
-            }}
-            style={{
-              width,
-              height: height * 0.55,
-            }}
-          />
-          <LinearGradient
-            colors={['transparent', 'rgba(23,23,23,0.8)', 'rgba(23,23,23,1)']}
-            style={[{width, height: height * 0.4, bottom: 0}, GS.absolute]}
-            start={{x: 0.5, y: 0}}
-            end={{x: 0.5, y: 1}}
-          />
-        </View>
+        <NavigateBack isAbsoluteStyle={true} />
+
+        {movie && (
+          <View>
+            <Image
+              source={{
+                uri: image500(movie?.poster_path) || no_poster,
+              }}
+              style={{
+                width,
+                height: height * 0.55,
+              }}
+            />
+            <LinearGradient
+              colors={['transparent', 'rgba(23,23,23,0.8)', 'rgba(23,23,23,1)']}
+              style={[{width, height: height * 0.4, bottom: 0}, GS.absolute]}
+              start={{x: 0.5, y: 0}}
+              end={{x: 0.5, y: 1}}
+            />
+          </View>
+        )}
       </View>
 
-      <View style={[{marginTop: -(height * 0.09)}, GS.marginTop2]}>
-        <Text
-          style={[GS.title24, GS.bold, GS.textAlignCenter, {letterSpacing: 1}]}>
-          {movieName}
-        </Text>
-        <Text
-          style={[
-            GS.bodyBold16,
-            GS.textAlignCenter,
-            detailsMovieStyle,
-            GS.marginVertical1,
-          ]}>
-          Released • 2023 • 160 min
-        </Text>
-        <View style={[GS.row, GS.justifyCenter]}>
-          <Text style={[GS.textAlignCenter, detailsMovieStyle]}>Action •</Text>
-          <Text style={[GS.textAlignCenter, detailsMovieStyle]}>Thirll •</Text>
-          <Text style={[GS.textAlignCenter, detailsMovieStyle]}>Adventure</Text>
-        </View>
-        <Text
-          style={[
-            GS.marginHorizontal4,
-            GS.marginTop2,
-            {color: theme.SecondaryColor},
-          ]}>
-          Brian O'Conner, back working for the FBI in Los Angeles, teams up with
-          Dominic Toretto to bring down a heroin importer by infiltrating his
-          operation.{' '}
-        </Text>
-      </View>
+      {movie && (
+        <View style={[{marginTop: -(height * 0.09)}, GS.marginTop2]}>
+          <Text
+            style={[
+              GS.title24,
+              GS.bold,
+              GS.textAlignCenter,
+              {letterSpacing: 1},
+            ]}>
+            {movie?.title}
+          </Text>
 
-      <Cast cast={cast} navigation={navigation} />
+          <Text
+            style={[
+              GS.bodyBold16,
+              GS.textAlignCenter,
+              detailsMovieStyle,
+              GS.marginVertical1,
+            ]}>
+            {movie.status} • {movie?.release_date?.split('-')[0]} •{' '}
+            {movie.runtime} min
+          </Text>
+          <View style={[GS.row, GS.justifyCenter]}>
+            {movie?.genres?.map(
+              (gen: {id: number; name: string}, index: number) => {
+                const showBullet = index + 1 != movie.genres.length;
+                return (
+                  <Text key={index} style={[detailsMovieStyle]}>
+                    {gen.name} {showBullet && '•'}
+                  </Text>
+                );
+              },
+            )}
+          </View>
+          <Text
+            style={[
+              GS.marginHorizontal4,
+              GS.marginTop2,
+              {color: theme.PrimaryColor},
+            ]}>
+            {movie?.overview}
+          </Text>
+        </View>
+      )}
+      <Cast cast={cast} />
+
       <MoviesList
         title="Similiar Movies"
         hideSeeAll={true}

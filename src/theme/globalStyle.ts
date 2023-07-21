@@ -216,11 +216,11 @@ export const GS = StyleSheet.create({
   paddingLeft8: {
     paddingLeft: convertWidthToPixel(8),
   },
-  paddingLeft12: {
-    paddingLeft: convertWidthToPixel(12),
+  paddingLeft2: {
+    paddingLeft: convertWidthToPixel(2),
   },
-  paddingLeft16: {
-    paddingLeft: convertWidthToPixel(16),
+  paddingLeft1: {
+    paddingLeft: convertWidthToPixel(1),
   },
   paddingLeft24: {
     paddingLeft: convertWidthToPixel(24),
@@ -245,8 +245,8 @@ export const GS = StyleSheet.create({
   paddingBottom8: {paddingBottom: convertHeightToPixel(8)},
   paddingBottom4: {paddingBottom: convertHeightToPixel(4)},
   paddingBottom16: {paddingBottom: convertHeightToPixel(16)},
-  paddingBottom24: {paddingBottom: convertHeightToPixel(24)},
-  paddingBottom32: {paddingBottom: convertHeightToPixel(32)},
+  paddingBottom1: {paddingBottom: convertHeightToPixel(1)},
+  paddingBottom2: {paddingBottom: convertHeightToPixel(2)},
   paddingHorizontal8: {
     paddingHorizontal: convertWidthToPixel(8),
   },
@@ -369,6 +369,9 @@ export const GS = StyleSheet.create({
   },
   marginTop64: {
     marginTop: convertHeightToPixel(64),
+  },
+  margin1: {
+    margin: convertWidthToPixel(1),
   },
   // texts
   removeFontPadding: {
@@ -631,6 +634,10 @@ export const GS = StyleSheet.create({
     borderRightWidth: 2,
     borderRightColor: 'rgb(163 163 163)',
   },
+  baseBorder: {
+    borderWidth: 1,
+    borderColor: 'rgb(163 163 163)',
+  },
 });
 
 export const Colors = {
@@ -642,41 +649,19 @@ export const Colors = {
 
 export const colorsTheme = {
   DARK: {
-    ...Colors,
-    PrimaryColor: '#FF4081', // Vivid pink
-    SecondaryColor: 'rgb(163 163 163)', // Vivid green
+    PrimaryColor: 'rgb(163 163 163)', // Vivid green
     ThirdColor: '#D50000',
     PrimaryBG: 'rgb(38 38 38)', // Dark blue
-    SecondaryBG: 'rgb(64 64 64)', // Teal
-    ThirdBG: '#AA00FF', // Electric purple
-    InvertBG: '#FFF3E0', // Light orange
-    InvertSecondBG: '#FFCDD2', // Light pink
+    SecondaryBG: 'rgb(64 64 64)', // Tea
     MainText: '#fff', // Vivid yellow
-    SecondaryText: '#69F0AE', // Mint green
-    InvertText: '#311B92', // Dark purple
-    InvertSecondText: '#E65100', // Dark orange
-    Error: '#D50000', // Bright red
-    Border: '#757575', // Medium gray
-    LoaderColor: '#FF5722', // Deep orange
-    BrushColor: '#FFFFFF', // White
+    SecondaryText: '#fff', // Mint green
   },
   LIGHT: {
-    ...Colors,
-    PrimaryColor: '#F50057', // Deep pink
-    SecondaryColor: '#00C853', // Lime green
-    PrimaryBG: '#FAFAFA', // Off-white
-    SecondaryBG: '#ECEFF1', // Light gray
-    ThirdColor: '#D97706',
-    ThirdBG: '#FFAB00', // Bright orange
-    InvertBG: '#1A237E', // Dark blue
-    InvertSecondBG: '#292525', // Dark brown
-    MainText: '#212121', // Black
-    SecondaryText: '#616161', // Medium gray
-    InvertText: '#FFFFFF', // White
-    InvertSecondText: '#795548', // Brown
-    Error: '#D50000', // Bright red
-    Border: '#BDBDBD', // Light gray
-    LoaderColor: '#FF5722', // Deep orange
-    BrushColor: '#FFFFFF', // White
+    PrimaryColor: '#4b5563', // Lime green
+    PrimaryBG: '#C5DFF8', // Off-white
+    SecondaryBG: '#7895CB', // Light gray
+    ThirdColor: '#001C30',
+    MainText: '#111827', // Black
+    SecondaryText: '#526D82', // Medium gray
   },
 };

@@ -1,30 +1,36 @@
-import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Home from '../src/screens/HomeScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import MovieScreen from '../src/screens/MovieScreen';
-import PersonScreen from '../src/screens/PersonScreen';
+import {ScreensNames, RootStackNamesParams} from './types';
+import MovieScreen from '../screens/MovieScreen';
+import PersonScreen from '../screens/PersonScreen';
+import HomeScreen from '../screens/HomeScreen';
+import SearchScreen from '../screens/SearchScreen';
 
 const Root: React.FC = () => {
-  const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator<RootStackNamesParams>();
   return (
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
+          name={ScreensNames.HOME}
           options={{headerShown: false}}
-          component={Home}
+          component={HomeScreen}
         />
         <Stack.Screen
-          name="Movie"
+          name={ScreensNames.MOVIE}
           options={{headerShown: false}}
           component={MovieScreen}
         />
         <Stack.Screen
-          name="Person"
+          name={ScreensNames.PERSON}
           options={{headerShown: false}}
           component={PersonScreen}
+        />
+        <Stack.Screen
+          name={ScreensNames.SEARCH}
+          options={{headerShown: false}}
+          component={SearchScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
@@ -32,5 +38,3 @@ const Root: React.FC = () => {
 };
 
 export default Root;
-
-const styles = StyleSheet.create({});

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Text as RNtext, TextProps, TextStyle} from 'react-native';
-import {GS} from '../../theme/globalStyle';
 import {useSelector} from 'react-redux';
 
 type AdditionalProps = {
