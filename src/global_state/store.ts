@@ -5,7 +5,6 @@ import ComponentReducer from './component.reducer';
 
 const reducers = {
   AppReducer,
-  ComponentReducer,
 };
 
 export default createStore(combineReducers(reducers));

@@ -1,18 +1,24 @@
-import {SWITCH_TO_DARK, SWITCH_TO_LIGHT} from './constants';
+import {SWITCH_TO_DARK, SWITCH_TO_LIGHT, Theme} from './constants';
 import {colorsTheme} from '../theme/globalStyle';
 
-export enum Theme {
-  LIGHT = 'LIGHT',
-  DARK = 'DARK',
+interface ColorsTheme {
+  [key: string]: {
+    PrimaryColor: string;
+    ThirdColor: string;
+    PrimaryBG: string;
+    SecondaryBG: string;
+    MainText: string;
+    SecondaryText: string;
+  };
 }
 
-interface initialStateType {
-  theme: Object;
+export interface initialStateType {
+  theme: object;
 }
 
 interface actionType {
-  type: String;
-  payload: Object;
+  type: string;
+  payload: string;
 }
 
 const initialState: initialStateType = {
@@ -24,12 +30,12 @@ export default (state = initialState, action: actionType) => {
     case SWITCH_TO_DARK:
       return {
         ...state,
-        theme: action.payload,
+        theme: colorsTheme[action.payload],
       };
     case SWITCH_TO_LIGHT:
       return {
         ...state,
-        theme: action.payload,
+        theme: colorsTheme[action.payload],
       };
     default:
       return state;

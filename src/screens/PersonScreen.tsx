@@ -3,26 +3,22 @@ import Text from '../components/reusable-components/Text';
 import React, {useState, useEffect} from 'react';
 import {useApiRequest} from '../hooks/useApiRequest';
 import {GS} from '../theme/globalStyle';
-import {useNavigation, useRoute} from '@react-navigation/native';
+import {useRoute} from '@react-navigation/native';
 import NavigateBack from '../components/NavigateBack';
 import {useSelector} from 'react-redux';
 import MoviesList from '../components/MoviesList';
-// @ts-ignore
-import {default_actor} from '../assets/default_actor.png';
 import {endpoints, image342} from '../api/api';
-import Loading from '../components/Loading';
 import {ActorDataType, MoviesType} from '../types/types';
-import type {RouteProp} from '@react-navigation/native';
-import {RootStackNamesParams, ScreensNames} from '../root/types';
+import {PersonScreenRouteProp} from '../root/types';
 
 const {width, height} = Dimensions.get('window');
 
-const PersonScreen = () => {
+const PersonScreen: React.FC = () => {
   const theme = useSelector<any>(state => state.AppReducer.theme) as any;
   const {sendRequest} = useApiRequest();
   const [personMovies, setPersonMovies] = useState<MoviesType[]>([]);
   const [actor, setActor] = useState<ActorDataType>();
-  const {params: person} = useRoute();
+  const {params: person} = useRoute<PersonScreenRouteProp>();
 
   const styleViewDeatils = [GS.paddingHorizontal4, GS.alignCenter];
   const styleTextDetails = [GS.text14, {color: theme.PrimaryColor}];
@@ -32,17 +28,13 @@ const PersonScreen = () => {
       try {
         let url = endpoints.personDetails(person.id);
         let data = await sendRequest({url});
-        console.log('actor details:  ', url);
 
         if (data) setActor(data);
-        console.log(person);
+
         url = endpoints.personMovies(person.id);
         data = await sendRequest({url});
-        console.log(url);
 
         if (data && data.cast) setPersonMovies(data.cast);
-
-        console.log('moviesss: ', data.cast);
       } catch (error) {}
     };
     fetchDetailsPerson();
@@ -69,9 +61,13 @@ const PersonScreen = () => {
                 {overflow: 'hidden', height: 280, width: 280},
               ]}>
               <Image
-                source={{
-                  uri: image342(actor?.profile_path) || default_actor,
-                }}
+                source={
+                  actor.profile_path
+                    ? {
+                        uri: image342(actor?.profile_path),
+                      }
+                    : require('../assets/default_actor.png')
+                }
                 style={{
                   width: width * 0.74,
                   height: height * 0.43,

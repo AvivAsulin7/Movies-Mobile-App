@@ -21,9 +21,8 @@ let styleContainer = [
 
 let extraStyle: any = [{zIndex: 20}, GS.absolute];
 
-const NavigateBack = ({isAbsoluteStyle}: NavigateBackProps) => {
+const NavigateBack: React.FC<NavigateBackProps> = ({isAbsoluteStyle}) => {
   const [isFavorite, setIsFavorite] = useState(false);
-  const theme = useSelector<any>(state => state.AppReducer.theme) as any;
 
   const navigation = useNavigation();
 

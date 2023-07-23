@@ -16,8 +16,6 @@ import {XMarkIcon} from 'react-native-heroicons/outline';
 import {useNavigation} from '@react-navigation/native';
 import {useApiRequest} from '../hooks/useApiRequest';
 import {endpoints, image185} from '../api/api';
-// @ts-ignore
-import {no_poster} from '../assets/no_poster.jpeg';
 import Loading from '../components/Loading';
 import {
   HomeNavigationProps,
@@ -49,7 +47,6 @@ const SearchScreen: React.FC = () => {
           },
         };
         const data = await sendRequest(movie);
-        console.log('dsfsdf: ', data.results);
 
         if (data && data.results) setResults(data.results);
       } else setResults([]);
@@ -109,14 +106,19 @@ const SearchScreen: React.FC = () => {
                   }>
                   <View style={[GS.marginBottom2, GS.marginTop2, GS.margin1]}>
                     <Image
-                      source={{
-                        uri: image185(item?.poster_path) || no_poster,
-                      }}
+                      source={
+                        item.poster_path
+                          ? {
+                              uri: image185(item?.poster_path),
+                            }
+                          : require('../assets/no_poster.jpeg')
+                      }
                       style={[
                         GS.borderRadius16,
                         {width: width * 0.44, height: height * 0.3},
                       ]}
                     />
+
                     <Text>
                       {item?.title.length > 22
                         ? item?.title.slice(0, 22) + '...'

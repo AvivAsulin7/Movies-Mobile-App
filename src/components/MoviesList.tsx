@@ -14,8 +14,6 @@ import {image185} from '../api/api';
 import {useSelector} from 'react-redux';
 import {MovieNavigationProps, ScreensNames} from '../root/types';
 import {MoviesType} from '../types/types';
-// @ts-ignore
-import {no_poster} from '../assets/no_poster.jpeg';
 
 const titleStyle = [GS.bodyBold18, GS.text20];
 
@@ -27,7 +25,7 @@ type Props = {
 
 const {width, height} = Dimensions.get('window');
 
-const MoviesList = ({title, data, hideSeeAll}: Props) => {
+const MoviesList: React.FC<Props> = ({title, data, hideSeeAll}) => {
   const theme = useSelector<any>(state => state.AppReducer.theme) as any;
 
   const navigation = useNavigation<MovieNavigationProps>();
@@ -56,9 +54,13 @@ const MoviesList = ({title, data, hideSeeAll}: Props) => {
               onPress={() => navigation.push(ScreensNames.MOVIE, item)}>
               <View style={GS.marginHorizontal0}>
                 <Image
-                  source={{
-                    uri: image185(item.poster_path) || no_poster,
-                  }}
+                  source={
+                    item.poster_path
+                      ? {
+                          uri: image185(item.poster_path),
+                        }
+                      : require('../assets/no_poster.jpeg')
+                  }
                   style={[
                     {
                       width: width * 0.33,
@@ -68,6 +70,7 @@ const MoviesList = ({title, data, hideSeeAll}: Props) => {
                     GS.borderRadius16,
                   ]}
                 />
+
                 <Text style={GS.margin1}>
                   {item?.title.length > 14
                     ? item?.title.slice(0, 14) + '...'

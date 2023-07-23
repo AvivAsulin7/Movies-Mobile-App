@@ -577,11 +577,8 @@ export const GS = StyleSheet.create({
   bgBlack: {
     backgroundColor: 'rgb(38 38 38)',
   },
-  bgRed: {
-    backgroundColor: 'red',
-  },
-  bgTrans: {
-    backgroundColor: 'transparent',
+  bgBlack2: {
+    backgroundColor: '#000',
   },
   grey: {
     color: 'color: rgb(163 163 163)',
@@ -660,8 +657,8 @@ export const colorsTheme = {
     PrimaryColor: '#4b5563', // Lime green
     PrimaryBG: '#C5DFF8', // Off-white
     SecondaryBG: '#7895CB', // Light gray
-    ThirdColor: '#001C30',
-    MainText: '#111827', // Black
-    SecondaryText: '#526D82', // Medium gray
+    ThirdColor: '#FF6000',
+    MainText: '#000', // Black
+    SecondaryText: '#0C134F', // Medium gray
   },
 };

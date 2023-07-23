@@ -2,6 +2,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {ActorType, MoviesType} from '../types/types';
 
 export enum ScreensNames {
+  SPLASHSCREEN = 'SplashScreen',
   HOME = 'Home',
   MOVIE = 'Movie',
   PERSON = 'Person',
@@ -15,6 +16,7 @@ export enum NavigationType {
 }
 
 export type RootStackNamesParams = {
+  SplashScreen: undefined;
   Home: undefined;
   Movie: undefined;
   Person: undefined;
@@ -44,6 +46,11 @@ export type SearchNavigationProps = NativeStackScreenProps<
   ScreensNames.SEARCH
 >;
 
+export type SplashScreenNavigationProps = NativeStackScreenProps<
+  RootStackNamesParams,
+  ScreensNames.SPLASHSCREEN
+>;
+
 /// useRoute types
 
 export type PersonScreenRouteProp = Readonly<{
@@ -52,7 +59,7 @@ export type PersonScreenRouteProp = Readonly<{
   path?: string | undefined;
 }> &
   Readonly<{
-    params: {person: any};
+    params: ActorType;
   }>;
 
 export type MovieScreenRouteProp = Readonly<{
@@ -61,5 +68,5 @@ export type MovieScreenRouteProp = Readonly<{
   path?: string | undefined;
 }> &
   Readonly<{
-    params: {item: MoviesType};
+    params: MoviesType;
   }>;

@@ -6,12 +6,18 @@ import MovieScreen from '../screens/MovieScreen';
 import PersonScreen from '../screens/PersonScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SearchScreen from '../screens/SearchScreen';
+import SplashScreen from '../screens/SplashScreen';
 
 const Root: React.FC = () => {
   const Stack = createNativeStackNavigator<RootStackNamesParams>();
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator initialRouteName={ScreensNames.SPLASHSCREEN}>
+        <Stack.Screen
+          name={ScreensNames.SPLASHSCREEN}
+          options={{headerShown: false}}
+          component={SplashScreen}
+        />
         <Stack.Screen
           name={ScreensNames.HOME}
           options={{headerShown: false}}

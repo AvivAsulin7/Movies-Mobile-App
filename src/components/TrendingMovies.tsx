@@ -7,8 +7,6 @@ import Carousel from 'react-native-snap-carousel';
 import {useNavigation} from '@react-navigation/native';
 import {image500} from '../api/api';
 import {MovieNavigationProps, ScreensNames} from '../root/types';
-// @ts-ignore
-import {no_poster} from '../assets/no_poster.jpeg';
 import {MoviesType} from '../types/types';
 
 const {width, height} = Dimensions.get('window');
@@ -18,18 +16,23 @@ type PropsMovieCard = {
   navigateToMovie: (item: MoviesType) => void;
 };
 
-const MovieCard = ({item, navigateToMovie}: PropsMovieCard) => {
+const MovieCard: React.FC<PropsMovieCard> = ({item, navigateToMovie}) => {
   return (
     <TouchableOpacity onPress={() => navigateToMovie(item)}>
       <Image
-        source={{
-          uri: image500(item.poster_path) || no_poster,
-        }}
+        source={
+          item.poster_path
+            ? {
+                uri: image500(item.poster_path),
+              }
+            : require('../assets/no_poster.jpeg')
+        }
         style={{
           width: width * 0.6,
           height: height * 0.4,
           borderRadius: 18,
-        }}></Image>
+        }}
+      />
     </TouchableOpacity>
   );
 };
@@ -38,7 +41,7 @@ type Props = {
   data: MoviesType[];
 };
 
-const TrendingMovies = ({data}: Props) => {
+const TrendingMovies: React.FC<Props> = ({data}) => {
   const navigation = useNavigation<MovieNavigationProps>();
 
   const navigateToMovie = (item: MoviesType) => {

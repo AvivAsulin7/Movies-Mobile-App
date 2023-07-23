@@ -4,8 +4,6 @@ import React from 'react';
 import {GS} from '../theme/globalStyle';
 import {useSelector} from 'react-redux';
 import {image185} from '../api/api';
-// @ts-ignore
-import {default_actor} from '../assets/default_actor.png';
 import {PersonNavigationProps, ScreensNames} from '../root/types';
 import {useNavigation} from '@react-navigation/native';
 import {ActorType} from '../types/types';
@@ -14,7 +12,7 @@ type Props = {
   cast: ActorType[];
 };
 
-const Cast = ({cast}: Props) => {
+const Cast: React.FC<Props> = ({cast}) => {
   const theme = useSelector<any>(state => state.AppReducer.theme) as any;
   const navigation = useNavigation<PersonNavigationProps>();
 
@@ -36,9 +34,13 @@ const Cast = ({cast}: Props) => {
                     {overflow: 'hidden'},
                   ]}>
                   <Image
-                    source={{
-                      uri: image185(person?.profile_path) || default_actor,
-                    }}
+                    source={
+                      person.profile_path
+                        ? {
+                            uri: image185(person?.profile_path),
+                          }
+                        : require('../assets/default_actor.png')
+                    }
                     style={[
                       {
                         width: 80,

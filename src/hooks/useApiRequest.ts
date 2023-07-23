@@ -12,7 +12,6 @@ export const useApiRequest = () => {
 
   const sendRequest = async ({url, params}: apiProps) => {
     setLoading(true);
-    console.log(url, params);
 
     try {
       const res = await axios.get(url, {params});
