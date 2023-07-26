@@ -22,13 +22,14 @@ import {Theme} from '../global_state/constants';
 import Loading from '../components/Loading';
 import {endpoints} from '../api/api';
 import {useApiRequest} from '../hooks/useApiRequest';
-import {
-  HomeNavigationProps,
-  ScreensNames,
-  SearchNavigationProps,
-} from '../root/types';
+import {HomeNavigationProps, ScreensNames} from '../root/types';
 import {MoviesType} from '../types/types';
 import {switch_to_dark, switch_to_light} from '../global_state/actions';
+import {initialStateType} from '../global_state/app.reducer';
+
+interface AppReducerType {
+  AppReducer: initialStateType;
+}
 
 const HomeScreen: React.FC<HomeNavigationProps> = ({navigation}) => {
   const [trending, setTrending] = useState<MoviesType[]>([]);
@@ -38,7 +39,10 @@ const HomeScreen: React.FC<HomeNavigationProps> = ({navigation}) => {
 
   const {loading, error, sendRequest} = useApiRequest();
 
-  const theme = useSelector<any>(state => state.AppReducer.theme) as any;
+  const theme = useSelector<AppReducerType>(
+    state => state.AppReducer.theme,
+  ) as any;
+
   const dispatch = useDispatch();
 
   const changeTheme = (value: boolean) => {

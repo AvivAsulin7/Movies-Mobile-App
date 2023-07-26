@@ -1,4 +1,4 @@
-import {colorsTheme} from '../theme/globalStyle';
+import {Key} from 'react';
 import {SWITCH_TO_DARK, SWITCH_TO_LIGHT} from './constants';
 
 export const switch_to_light = (value: string) => ({

@@ -1,19 +1,9 @@
 import {SWITCH_TO_DARK, SWITCH_TO_LIGHT, Theme} from './constants';
 import {colorsTheme} from '../theme/globalStyle';
-
-interface ColorsTheme {
-  [key: string]: {
-    PrimaryColor: string;
-    ThirdColor: string;
-    PrimaryBG: string;
-    SecondaryBG: string;
-    MainText: string;
-    SecondaryText: string;
-  };
-}
+import {ColorsModeType} from '../theme/types';
 
 export interface initialStateType {
-  theme: object;
+  theme: ColorsModeType;
 }
 
 interface actionType {

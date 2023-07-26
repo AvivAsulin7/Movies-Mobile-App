@@ -96,3 +96,18 @@ export type PreviewNavigationProps = {
 type PreviewScreenParams = {
   screenIndex: number;
 };
+
+export interface ColorsModeType {
+  PrimaryColor: string;
+  ThirdColor: string;
+  PrimaryBG: string;
+  SecondaryBG: string;
+  MainText: string;
+  SecondaryText: string;
+}
+
+export interface ColorsThemeType {
+  [x: string]: any;
+  DARK: ColorsModeType;
+  LIGHT: ColorsModeType;
+}

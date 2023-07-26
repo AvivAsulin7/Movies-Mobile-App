@@ -1,4 +1,5 @@
 import {StyleSheet, Dimensions, PixelRatio, Platform} from 'react-native';
+import {ColorsThemeType} from './types';
 
 // Get the screen dimensions
 const {width: screenWidth, height: screenHeight} = Dimensions.get('window');
@@ -644,7 +645,7 @@ export const Colors = {
   Green: '#00FF00',
 };
 
-export const colorsTheme = {
+export const colorsTheme: ColorsThemeType = {
   DARK: {
     PrimaryColor: 'rgb(163 163 163)', // Vivid green
     ThirdColor: '#D50000',
