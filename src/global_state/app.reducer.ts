@@ -1,15 +1,6 @@
 import {SWITCH_TO_DARK, SWITCH_TO_LIGHT, Theme} from './constants';
 import {colorsTheme} from '../theme/globalStyle';
-import {ColorsModeType} from '../theme/types';
-
-export interface initialStateType {
-  theme: ColorsModeType;
-}
-
-interface actionType {
-  type: string;
-  payload: string;
-}
+import {actionType, initialStateType} from './types';
 
 const initialState: initialStateType = {
   theme: colorsTheme[Theme.DARK],

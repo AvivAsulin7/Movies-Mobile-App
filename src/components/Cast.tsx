@@ -4,17 +4,18 @@ import React from 'react';
 import {GS} from '../theme/globalStyle';
 import {useSelector} from 'react-redux';
 import {image185} from '../api/api';
-import {PersonNavigationProps, ScreensNames} from '../root/types';
-import {useNavigation} from '@react-navigation/native';
 import {ActorType} from '../types/types';
+import {AppReducerType} from '../global_state/types';
 
 type Props = {
   cast: ActorType[];
+  navigateToActor: (person: ActorType) => void;
 };
 
-const Cast: React.FC<Props> = ({cast}) => {
-  const theme = useSelector<any>(state => state.AppReducer.theme) as any;
-  const navigation = useNavigation<PersonNavigationProps>();
+const Cast: React.FC<Props> = ({cast, navigateToActor}) => {
+  const theme = useSelector<AppReducerType>(
+    state => state.AppReducer.theme,
+  ) as any;
 
   return (
     <View style={[GS.marginVertical4]}>
@@ -26,7 +27,7 @@ const Cast: React.FC<Props> = ({cast}) => {
               <TouchableOpacity
                 key={index}
                 style={[GS.alignCenter, GS.marginTop2]}
-                onPress={() => navigation.push(ScreensNames.PERSON, person)}>
+                onPress={() => navigateToActor(person)}>
                 <View
                   style={[
                     GS.borderRadiusMax,

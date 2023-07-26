@@ -1,8 +1,6 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {StyleSheet} from 'react-native';
+import React from 'react';
+
 import {LogBox} from 'react-native';
 
 LogBox.ignoreLogs([
@@ -12,15 +10,6 @@ LogBox.ignoreLogs([
 import Root from './src/root/Root';
 
 const App: React.FC = () => {
-  // const dispatch = useDispatch();
-  // const state = useSelector<any>(state => state.AppReducer);
-
-  // console.log(state);
-
-  // useEffect(() => {
-  //   dispatch(do_something({}));
-  // }, []);
-
   return <Root />;
 };
 

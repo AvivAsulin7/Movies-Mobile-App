@@ -39,15 +39,10 @@ const MovieCard: React.FC<PropsMovieCard> = ({item, navigateToMovie}) => {
 
 type Props = {
   data: MoviesType[];
+  navigateToMovie: (item: MoviesType) => void;
 };
 
-const TrendingMovies: React.FC<Props> = ({data}) => {
-  const navigation = useNavigation<MovieNavigationProps>();
-
-  const navigateToMovie = (item: MoviesType) => {
-    navigation.navigate(ScreensNames.MOVIE, item);
-  };
-
+const TrendingMovies: React.FC<Props> = ({data, navigateToMovie}) => {
   return (
     <View style={GS.marginBottom6}>
       <Text

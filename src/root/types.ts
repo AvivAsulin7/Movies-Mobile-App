@@ -18,8 +18,8 @@ export enum NavigationType {
 export type RootStackNamesParams = {
   SplashScreen: undefined;
   Home: undefined;
-  Movie: undefined;
-  Person: undefined;
+  Movie: {item: MoviesType};
+  Person: {person: ActorType};
   Search: undefined;
   Settings: undefined;
 };
@@ -53,20 +53,20 @@ export type SplashScreenNavigationProps = NativeStackScreenProps<
 
 /// useRoute types
 
-export type PersonScreenRouteProp = Readonly<{
-  key: string;
-  name: ScreensNames.PERSON;
-  path?: string | undefined;
-}> &
-  Readonly<{
-    params: ActorType;
-  }>;
+// export type PersonScreenRouteProp = Readonly<{
+//   key: string;
+//   name: ScreensNames.PERSON;
+//   path?: string | undefined;
+// }> &
+//   Readonly<{
+//     params: ActorType;
+//   }>;
 
-export type MovieScreenRouteProp = Readonly<{
-  key: string;
-  name: ScreensNames.PERSON;
-  path?: string | undefined;
-}> &
-  Readonly<{
-    params: MoviesType;
-  }>;
+// export type MovieScreenRouteProp = Readonly<{
+//   key: string;
+//   name: ScreensNames.PERSON;
+//   path?: string | undefined;
+// }> &
+//   Readonly<{
+//     params: MoviesType;
+//   }>;

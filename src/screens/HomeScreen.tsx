@@ -25,11 +25,7 @@ import {useApiRequest} from '../hooks/useApiRequest';
 import {HomeNavigationProps, ScreensNames} from '../root/types';
 import {MoviesType} from '../types/types';
 import {switch_to_dark, switch_to_light} from '../global_state/actions';
-import {initialStateType} from '../global_state/app.reducer';
-
-interface AppReducerType {
-  AppReducer: initialStateType;
-}
+import {AppReducerType} from '../global_state/types';
 
 const HomeScreen: React.FC<HomeNavigationProps> = ({navigation}) => {
   const [trending, setTrending] = useState<MoviesType[]>([]);
@@ -49,7 +45,10 @@ const HomeScreen: React.FC<HomeNavigationProps> = ({navigation}) => {
     setIsEnabled(value);
     if (value === true) dispatch(switch_to_light(Theme.LIGHT));
     else dispatch(switch_to_dark(Theme.DARK));
-    console.log(theme);
+  };
+
+  const navigateToMovie = (item: MoviesType) => {
+    navigation.push(ScreensNames.MOVIE, {item});
   };
 
   useEffect(() => {
@@ -126,9 +125,17 @@ const HomeScreen: React.FC<HomeNavigationProps> = ({navigation}) => {
         <ScrollView
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={GS.paddingBottom8}>
-          <TrendingMovies data={trending} />
-          <MoviesList title="Upcoming" data={upcoming} />
-          <MoviesList title="Top Rated" data={topRated} />
+          <TrendingMovies data={trending} navigateToMovie={navigateToMovie} />
+          <MoviesList
+            title="Upcoming"
+            data={upcoming}
+            navigateToMovie={navigateToMovie}
+          />
+          <MoviesList
+            title="Top Rated"
+            data={topRated}
+            navigateToMovie={navigateToMovie}
+          />
         </ScrollView>
       )}
     </View>

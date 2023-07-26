@@ -13,28 +13,23 @@ import Text from '../components/reusable-components/Text';
 import {useSelector} from 'react-redux';
 import {GS} from '../theme/globalStyle';
 import {XMarkIcon} from 'react-native-heroicons/outline';
-import {useNavigation} from '@react-navigation/native';
 import {useApiRequest} from '../hooks/useApiRequest';
 import {endpoints, image185} from '../api/api';
-import Loading from '../components/Loading';
-import {
-  HomeNavigationProps,
-  MovieNavigationProps,
-  ScreensNames,
-} from '../root/types';
+import {ScreensNames, SearchNavigationProps} from '../root/types';
 import {MoviesType} from '../types/types';
+import {AppReducerType} from '../global_state/types';
 
 const {width, height} = Dimensions.get('window');
 
-const SearchScreen: React.FC = () => {
-  const theme = useSelector<any>(state => state.AppReducer.theme) as any;
+const SearchScreen: React.FC<SearchNavigationProps> = ({navigation}) => {
+  const theme = useSelector<AppReducerType>(
+    state => state.AppReducer.theme,
+  ) as any;
   const {loading, error, sendRequest} = useApiRequest();
-  const HomeNavigation = useNavigation<HomeNavigationProps>();
-  const MovieNavigation = useNavigation<MovieNavigationProps>();
 
   const [results, setResults] = useState<MoviesType[]>([]);
 
-  const handleSearch = async (value: any) => {
+  const handleSearch = async (value: string) => {
     try {
       if (value && value.length > 2) {
         const movie = {
@@ -79,7 +74,7 @@ const SearchScreen: React.FC = () => {
         />
         <TouchableOpacity
           onPress={() => {
-            HomeNavigation.navigate(ScreensNames.HOME);
+            navigation.navigate(ScreensNames.HOME);
           }}
           style={[
             GS.borderRadiusMax,
@@ -90,7 +85,7 @@ const SearchScreen: React.FC = () => {
           <XMarkIcon size="25" color="white" />
         </TouchableOpacity>
       </View>
-      {loading && <Loading />}
+
       {results.length > 0 ? (
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -101,9 +96,7 @@ const SearchScreen: React.FC = () => {
               return (
                 <TouchableWithoutFeedback
                   key={index}
-                  onPress={() =>
-                    MovieNavigation.push(ScreensNames.MOVIE, item)
-                  }>
+                  onPress={() => navigation.push(ScreensNames.MOVIE, {item})}>
                   <View style={[GS.marginBottom2, GS.marginTop2, GS.margin1]}>
                     <Image
                       source={

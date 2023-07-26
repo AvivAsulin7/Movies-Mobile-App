@@ -9,11 +9,10 @@ import {
 import Text from './reusable-components/Text';
 import React from 'react';
 import {GS} from '../theme/globalStyle';
-import {useNavigation} from '@react-navigation/native';
 import {image185} from '../api/api';
 import {useSelector} from 'react-redux';
-import {MovieNavigationProps, ScreensNames} from '../root/types';
 import {MoviesType} from '../types/types';
+import {AppReducerType} from '../global_state/types';
 
 const titleStyle = [GS.bodyBold18, GS.text20];
 
@@ -21,14 +20,20 @@ type Props = {
   title: String;
   data: MoviesType[];
   hideSeeAll?: Boolean;
+  navigateToMovie: (item: MoviesType) => void;
 };
 
 const {width, height} = Dimensions.get('window');
 
-const MoviesList: React.FC<Props> = ({title, data, hideSeeAll}) => {
-  const theme = useSelector<any>(state => state.AppReducer.theme) as any;
-
-  const navigation = useNavigation<MovieNavigationProps>();
+const MoviesList: React.FC<Props> = ({
+  title,
+  data,
+  hideSeeAll,
+  navigateToMovie,
+}) => {
+  const theme = useSelector<AppReducerType>(
+    state => state.AppReducer.theme,
+  ) as any;
 
   return (
     <View style={GS.marginBottom4}>
@@ -51,7 +56,7 @@ const MoviesList: React.FC<Props> = ({title, data, hideSeeAll}) => {
           return (
             <TouchableWithoutFeedback
               key={index}
-              onPress={() => navigation.push(ScreensNames.MOVIE, item)}>
+              onPress={() => navigateToMovie(item)}>
               <View style={GS.marginHorizontal0}>
                 <Image
                   source={
